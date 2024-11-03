@@ -52,7 +52,13 @@ def get_conversation_chain(vector_store):
 
 def handle_user_prompt(user_prompt):
     response = st.session_state.conversation({"question": user_prompt})
-    st.write(response)
+    st.session_state.chat_history = response["chat_history"]
+
+    for i, message in enumerate(st.session_state.chat_history):
+        if i % 2 == 0:
+            st.write(user_template.replace("{{MSG}}", message.content), unsafe_allow_html=True)
+        else:
+            st.write(bot_template.replace("{{MSG}}", message.content), unsafe_allow_html=True)
 
 
 def main():
@@ -75,8 +81,8 @@ def main():
     if user_prompt:
         handle_user_prompt(user_prompt)
 
-    st.write(user_template.replace("{{MSG}}", "Hello User"), unsafe_allow_html=True)
-    st.write(bot_template.replace("{{MSG}}", "Hello Bot"), unsafe_allow_html=True)
+    # st.write(user_template.replace("{{MSG}}", "Hello User"), unsafe_allow_html=True)
+    # st.write(bot_template.replace("{{MSG}}", "Hello Bot"), unsafe_allow_html=True)
 
     with st.sidebar:
         st.subheader("Documents")
