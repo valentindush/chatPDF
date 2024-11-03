@@ -9,7 +9,7 @@ Made using `Streamlit`, `LangChain`, `HuggingFaceInferenceAPIEmbeddings`, `Pypdf
 2. **HF_API_KEY** To get your Hugging Face, go to [https://huggingface.co/settings/tokens](https://huggingface.co/settings/tokens) and get yours.
 
 ### Install Packages
-To void errors you would want to use **venv**.
+To void errors you might want to use **venv**.
 
 ```bash
 pip install -r requirements.txt
