@@ -1,5 +1,4 @@
 import os
-
 import streamlit as st
 from dotenv import  load_dotenv
 from pypdf import PdfReader
@@ -9,6 +8,7 @@ from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from langchain_groq.chat_models import ChatGroq
+from htmTemplate import  css, bot_template, user_template
 
 def get_pdf_text(pdf_docs):
     text = ""
@@ -58,12 +58,20 @@ def main():
         page_icon=":books:"
     )
 
+    st.write(css, unsafe_allow_html=True)
+
     if "conversation" not in st.session_state:
         st.session_state.conversation = None
 
     st.header("PDF Chat")
     st.subheader("Ask questions about PDF documents")
-    st.chat_input("Ask questions")
+    user_prompt = st.chat_input("Ask questions")
+
+    if user_prompt:
+        handle_user_prompt(user_prompt)
+
+    st.write(user_template.replace("{{MSG}}", "Hello User"), unsafe_allow_html=True)
+    st.write(bot_template.replace("{{MSG}}", "Hello Bot"), unsafe_allow_html=True)
 
     with st.sidebar:
         st.subheader("Documents")
