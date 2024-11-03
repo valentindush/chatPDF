@@ -50,6 +50,11 @@ def get_conversation_chain(vector_store):
 
     return conversation_chain
 
+def handle_user_prompt(user_prompt):
+    response = st.session_state.conversation({"question": user_prompt})
+    st.write(response)
+
+
 def main():
     load_dotenv()
 
